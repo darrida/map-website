@@ -41,7 +41,7 @@ def crawler(domain, ofile, mute):
                 # add broken urls to it's own set, then continue
                 broken_urls.add(url)
                 continue
-            
+
             # extract base url to resolve relative links
             parts = urlsplit(url)
             base = "{0.netloc}".format(parts)
@@ -68,7 +68,7 @@ def crawler(domain, ofile, mute):
                     foreign_urls.add(anchor)
 
             for i in local_urls:
-                if not i in new_urls and not i in processed_urls:
+                if i not in new_urls and i not in processed_urls:
                     new_urls.append(i)
 
         print()
@@ -82,7 +82,7 @@ def crawler(domain, ofile, mute):
                 return mute_report_file(ofile, local_urls)
             else:
                 return mute_report(local_urls)
-    
+
     except KeyboardInterrupt:
         sys.exit()
 
@@ -132,11 +132,8 @@ def limit_crawler(domain, ofile, limit, mute):
 
                 if limit in anchor:
                     limit_urls.add(anchor)
-                else:
-                    pass
-
             for i in limit_urls:
-                if not i in new_urls and not i in processed_urls:
+                if i not in new_urls and i not in processed_urls:
                     new_urls.append(i)
 
         print()
